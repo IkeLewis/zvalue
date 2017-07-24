@@ -130,6 +130,16 @@ endif()
 # Instead, we define the corresponding targets all2, install2, test2,
 # etc.
 
+set(ALL2_COMMAND
+  ${CMAKE_COMMAND} -E cmake_progress_start
+	              ${CMAKE_BINARY_DIR}/CMakeFiles
+		      ${CMAKE_BINARY_DIR}/CMakeFiles/progress.marks &&
+  # TODO: try to eliminate the following dependency on 'make' so that
+  # other build systems may also be used.
+  make -f ${CMAKE_BINARY_DIR}/CMakeFiles/Makefile2 all &&
+  ${CMAKE_COMMAND} -E cmake_progress_start
+                      ${CMAKE_BINARY_DIR}/CMakeFiles 0)
+
 add_custom_target(all2
   COMMAND @$(CMAKE_COMMAND) -E cmake_progress_start ${PROJECT_SOURCE_DIR}/CMakeFiles ${PROJECT_SOURCE_DIR}/CMakeFiles/progress.marks && $(MAKE) -f CMakeFiles/Makefile2 all && $(CMAKE_COMMAND) -E cmake_progress_start ${PROJECT_SOURCE_DIR}/CMakeFiles 0)
 
