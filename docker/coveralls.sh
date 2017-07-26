@@ -4,8 +4,6 @@ CWD="$(cd -P -- "$(dirname -- $0)" && pwd -P)"
 
 source "$CWD/build.sh"
 
-echo "Invoked from: $PWD"
-
 if [ "${UPLOAD_COVERAGE}" == "yes" ]; then
 
     cpp-coveralls --verbose \
