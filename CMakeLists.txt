@@ -141,13 +141,18 @@ set(ALL2_COMMAND
                       ${CMAKE_BINARY_DIR}/CMakeFiles 0)
 
 add_custom_target(all2
-  COMMAND @$(CMAKE_COMMAND) -E cmake_progress_start ${PROJECT_SOURCE_DIR}/CMakeFiles ${PROJECT_SOURCE_DIR}/CMakeFiles/progress.marks && $(MAKE) -f CMakeFiles/Makefile2 all && $(CMAKE_COMMAND) -E cmake_progress_start ${PROJECT_SOURCE_DIR}/CMakeFiles 0)
+  COMMAND ${ALL2_COMMAND})
+
+# TODO: format these like 'all2'
 
 add_custom_target(test2
-  COMMAND @${CMAKE_COMMAND} -E cmake_echo_color --switch=${COLOR} --cyan "Running tests..." && ctest --force-new-ctest-process ${ARGS})
+  COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --switch=${COLOR} --cyan "Running tests..." && ctest --force-new-ctest-process ${ARGS})
 add_dependencies(test2 all2)
 
 add_custom_target(lcov-view-coverage
   COMMAND lcov --directory ../zvalue --directory ${CMAKE_BINARY_DIR}/CMakeFiles/zvalue_all_test.dir --capture --output-file coverage.lcov --no-external && genhtml coverage.lcov --output-directory lcov-html && firefox lcov-html/index.html &
   DEPENDS ${CMAKE_BINARY_DIR}/CMakeFiles/zvalue_all_test.dir/test/zvalue_all_test.cc.gcda)
 add_dependencies(lcov-view-coverage test2)
+
+add_custom_target(cpp-coveralls-dump-coverage
+  COMMAND docker run -it --rm -v ${CMAKE_SOURCE_DIR}/docker:/entrypoint/:ro --entrypoint=/entrypoint/coveralls.sh \${EXTRA_DOCKER_OPTIONS} ikelewis/cpp-coveralls)

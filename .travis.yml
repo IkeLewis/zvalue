@@ -1,0 +1,15 @@
+sudo: required
+
+services:
+
+    - docker
+
+before_install:
+
+    - docker pull ikelewis/cpp-coveralls
+
+script:
+
+    - docker run -it --rm -v ${PWD}/docker:/entrypoint/:ro \
+      --entrypoint=/entrypoint/coveralls.sh ikelewis/cpp-coveralls \
+      UPLOAD_COVERAGE=yes
