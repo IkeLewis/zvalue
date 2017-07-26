@@ -8,7 +8,7 @@ if [ "${UPLOAD_COVERAGE}" == "yes" ]; then
 
     cpp-coveralls --verbose \
 		  --encodings utf-8 latin-1 \
-		  -E ".*/googletest.*" -E ".*/CMake.*" \
+		  -E ".*/googletest.*" -E ".*/CMake.*"
 
 elif [ -z "${UPLOAD_COVERAGE}" ]; then
 
