@@ -10,4 +10,4 @@ before_install:
 
 script:
 
-    - docker run -it --rm -v ${PWD}/docker:/entrypoint/:ro -e UPLOAD_COVERAGE=yes --entrypoint=/entrypoint/coveralls.sh ikelewis/cpp-coveralls
+    - docker run -it --rm -v ${PWD}/docker:/entrypoint/:ro -e UPLOAD_COVERAGE=yes -e COVERALLS_REPO_TOKEN --entrypoint=/entrypoint/coveralls.sh ikelewis/cpp-coveralls
